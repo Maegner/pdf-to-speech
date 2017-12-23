@@ -23,9 +23,9 @@ class AudioMaker(threading.Thread):
             entireText += '\n' + pdfReader.extractTextFromPage(self.pdfReaderObject,self.currentPage)
         print("All read, Converting to audio!")
         tts = gTTS(text=entireText, lang=self.lang)
-        audioFile = self.filename[:-3] + 'mp3'
+        audioFile =  "audioFiles/" self.filename[:-3] + 'mp3'
         tts.save(audioFile)
-        print("Pdf audio saved in " + audioFile)
+        print("MP3 audio file saved in " + audioFile)
 
     def flagForFileCreated(self,pageNumber):
         newfile = str(pageNumber) + '.pk'

@@ -27,7 +27,7 @@ def main():
     os.system
 
     if narguments < 2:
-       sys.stderr.write('[ERROR] please provide filename\n[HELP] $python2.7 pdfToSpeak.py foo.pdf\n')
+       sys.stderr.write('[ERROR] please provide filename\n[HELP] $python3 pdfToSpeak.py foo.pdf\n')
        return
 
     if not os.path.isfile(arguments[1]):
