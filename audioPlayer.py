@@ -1,19 +1,26 @@
 import pyglet
 import os
+import pickle
 import threading
 from time import sleep
 
 class AudioPlayer(threading.Thread):
-    def __init__(self,startingPage):
+    def __init__(self,startingPage,filename):
         threading.Thread.__init__(self)
         self.currentPage = startingPage
+        self.filename = filename
     
     def playAudio(self,filename):
         audio = pyglet.media.load(filename, streaming=False)
         audio.play()
         sleep(audio.duration)
         os.remove(filename)
-    
+
+    def registerLastReadPage(self):
+        logger = 'logs/'+self.filename[:-3]+'pk'
+        with open(logger, 'wb') as fi:
+            pickle.dump(self.currentPage, fi)
+
     def run(self):
         while True:
             audioFileName = str(self.currentPage) + ".mp3"
@@ -28,3 +35,4 @@ class AudioPlayer(threading.Thread):
                     self.playAudio(audioFileName)
                 os.remove(flagFile)
                 self.currentPage += 1
+                self.registerLastReadPage()
