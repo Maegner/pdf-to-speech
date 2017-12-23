@@ -27,18 +27,18 @@ If there is a problem with the AVbin version for your PC just go to https://avbi
 Copy the pdf file you want to listen to the pdf-to-speech folder and run
 
 ```sh
-$ python3 pdfTospeech.py filename.pdf 
+$ python3 pdfToSpeech.py filename.pdf 
 ```
 or if you want to specify a certaint page for it to start reading
 ```sh
-$ python3 pdfTospeech.py filename.pdf  pageNumber
+$ python3 pdfToSpeech.py filename.pdf  pageNumber
 ```
 
 It will take around 10-20 seconds before it actually starts reading, it could be faster or slower depending on the amount of text in the first page
 
 You can stop it at any time by clicking ctrl-c and the next time you want to listen to your pdf just run
 ```sh
-$ python3 pdfTospeech.py filename.pdf 
+$ python3 pdfToSpeech.py filename.pdf 
 ```
 and it will start on the beginning of the page you were last listening to.
 
