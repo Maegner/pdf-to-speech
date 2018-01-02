@@ -5,8 +5,9 @@ import threading
 from time import sleep
 
 class AudioPlayer(threading.Thread):
-    def __init__(self,startingPage,filename):
+    def __init__(self,startingPage,filename,qeue):
         threading.Thread.__init__(self)
+        self.qeue = qeue
         self.currentPage = startingPage
         self.filename = filename
     
@@ -22,17 +23,13 @@ class AudioPlayer(threading.Thread):
             pickle.dump(self.currentPage, fi)
 
     def run(self):
-        while True:
-            audioFileName = str(self.currentPage) + ".mp3"
-            flagFile = str(self.currentPage) + ".pk"
-            
-            if not os.path.isfile(flagFile):
-                print("Waiting for audio file for page " + str(self.currentPage))
-                sleep(2)
+        while True:    
+            if not self.qeue:
+                sleep(5)
             else:
+                self.currentPage = self.qeue.pop(0)
+                audioFileName = str(self.currentPage) + ".mp3" 
                 if os.path.isfile(audioFileName):
                     print("Reading page " + str(self.currentPage))
                     self.playAudio(audioFileName)
-                os.remove(flagFile)
-                self.currentPage += 1
                 self.registerLastReadPage()

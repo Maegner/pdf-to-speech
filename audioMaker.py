@@ -7,8 +7,9 @@ from time import sleep
 from gtts import gTTS
 
 class AudioMaker(threading.Thread):
-    def __init__(self,filename,lang,startingPage,all=False):
+    def __init__(self,filename,lang,startingPage,qeue,all=False):
         threading.Thread.__init__(self)
+        self.qeue = qeue
         self.currentPage = startingPage
         self.filename = filename
         self.pdfReaderObject = pdfReader.openFile(filename)
@@ -28,9 +29,8 @@ class AudioMaker(threading.Thread):
         print("MP3 audio file saved in " + audioFile)
 
     def flagForFileCreated(self,pageNumber):
-        newfile = str(pageNumber) + '.pk'
-        with open(newfile, 'wb') as fi:
-            pickle.dump("start", fi)
+        print("Qeued page " +str(pageNumber))
+        self.qeue.append(pageNumber)
 
 
     def makeAudioFile(self,pageNumber):
@@ -44,7 +44,7 @@ class AudioMaker(threading.Thread):
         print("Created audio file for page " + str(pageNumber))
         self.flagForFileCreated(pageNumber)
         music = pyglet.media.load(audioFilename, streaming=False)
-        sleep(music.duration*0.75)
+        sleep(music.duration*0.50)
 
     def run(self):
         if(not self.all):

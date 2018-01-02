@@ -18,8 +18,9 @@ def retrieveLastReadPage(filename):
 
 def main():
     
+    qeue = []
+    
     os.system("rm *.mp3")
-    os.system("rm *.pk")
 
     arguments = sys.argv
     narguments = len(arguments)
@@ -35,16 +36,16 @@ def main():
         return
 
     if narguments >= 3:
-        audioMakerThread = AudioMaker(arguments[1],"en",int(arguments[2]),all=False)
-        audioPlayerThread = AudioPlayer(int(arguments[2]),arguments[1])
+        audioMakerThread = AudioMaker(arguments[1],"en",int(arguments[2]),qeue,all=False)
+        audioPlayerThread = AudioPlayer(int(arguments[2]),arguments[1],qeue)
 
     if narguments == 2:
         if hasReadingStarted(arguments[1]):
             startingPage = retrieveLastReadPage(arguments[1])
         else:
             startingPage = 0
-        audioMakerThread = AudioMaker(arguments[1],"en",startingPage,all=False)
-        audioPlayerThread = AudioPlayer(startingPage,arguments[1])
+        audioMakerThread = AudioMaker(arguments[1],"en",startingPage,qeue,all=False)
+        audioPlayerThread = AudioPlayer(startingPage,arguments[1],qeue)
 
     audioMakerThread.daemon = True
     audioPlayerThread.daemon = True
