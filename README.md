@@ -1,5 +1,7 @@
 # pdf-to-speech
 
+# This project is Deprecated, and is no longer supported.
+
 PDF-to-speech is a Python script that reads your PDF's to you, 
 and it can also create a mp3 file with your full PDF.
 
@@ -56,4 +58,4 @@ $ python3 pdfTomp3.py filename.pdf  pageNumber
 Keep in mind that this might take a while if the pdf is very large
 
 ## Author
-- Francisco Aguiar (franciscomaguiar@gmail.com)
+- Francisco Aguiar
